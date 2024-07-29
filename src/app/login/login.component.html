@@ -1,0 +1,57 @@
+
+ 
+  <!-- As a heading -->
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">Book You Seat</span>
+  </nav>
+ 
+ 
+ 
+  
+<div  class="row ">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <form [formGroup]="loginform" (ngSubmit)="AuthenticateUser()">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="text" class="form-control" formControlName="associateNumber"  placeholder="Enter Associate Number">
+                <div *ngIf="loginform.get('associateNumber').touched && !loginform.get('associateNumber').valid" >
+                    <div *ngIf="loginform.get('associateNumber').errors.required">
+                        <small class="form-text text-danger">Associate Number Required!</small>
+                    </div> 
+                 </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-describedby="passwordHelp">
+            <small id="passwordHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
+            <div *ngIf="loginform.get('password').touched && !loginform.get('password').valid" >
+                <div *ngIf="loginform.get('password').errors.required">
+                    <small class="form-text text-danger">Password Required!</small>
+                </div> 
+             </div>
+        </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form> 
+        </div>
+        
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+<div class="col-lg-4 col-md-4 col-sm-4">
+    <h3 class="">Book You Seat </h3>
+
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, user!</h1>
+        <p class="lead">Login and book your seat</p>
+        <hr class="my-4">
+        <p>Connect support team if any issues using below link.</p>
+        <a class="btn btn-primary btn-lg" href="#" role="button">Connect</a>
+      </div>
+</div>
+<div class="col-lg-2 col-md-2 col-sm-2"></div>
+
+
+
+</div>
