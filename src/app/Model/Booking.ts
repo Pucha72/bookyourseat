@@ -2,7 +2,8 @@
 export interface IBooking
 {
        id :number,
-       employeeId :string,
+       employeeId :number,
+       associatenumber :string,
        dateOfVisit  :Date,
        seatId  :string,
        seatpath  :string,

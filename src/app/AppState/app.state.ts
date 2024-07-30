@@ -1,20 +1,20 @@
-import { Booking } from "../Model/Booking";
-import { Employee } from "../Model/Employee";
+import { Booking, IBooking } from "../Model/Booking";
+import { Employee, IEmployee } from "../Model/Employee";
 import { IOfficeLocation } from "../Model/OfficeLocation";
-import { SeatMaster } from "../Model/SeatMaster";
+import { ISeatMaster, SeatMaster } from "../Model/SeatMaster";
 
 export interface IAppState{
     isauthenticated:boolean,
-    officelocation:IOfficeLocation[] |null,
-    seatmaster:SeatMaster[] |null,
-    employee:Employee |null,
-    bookings:Booking[] |null
+    officelocation:IOfficeLocation[],
+    seatmaster:ISeatMaster[],
+    employee:IEmployee,
+    bookings:IBooking[]
 
 }
 export const intialState:IAppState={
     isauthenticated: false,
-    officelocation: null,
-    seatmaster: null,
-    employee: null,
-    bookings: null
+    officelocation: [],
+    seatmaster: [],
+    employee:{id:0,associateNumber:'',name:'',role:''},
+    bookings: []
 }

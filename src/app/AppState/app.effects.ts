@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { LoginService } from "../services/login.service";
 import { BookingsService } from "../services/bookings.service";
 import { map, mergeMap } from "rxjs";
-import { login, login_success } from "./app.actions";
+import { login, login_success, logout, logout_success } from "./app.actions";
 
 
 @Injectable()
@@ -29,4 +29,11 @@ export class AppEffects {
         );
     }
     )
+    _logout=createEffect(()=>{
+        return this.action$.pipe(
+            ofType(logout),
+                map(()=> {return logout_success({data:null})}) 
+        )
+ 
+    })
 }

@@ -19,3 +19,9 @@ export const getLoginStatus=createSelector(AppSelector,
                 return state.isauthenticated as Boolean;
              }
 )
+
+export const getUser=createSelector(AppSelector,
+    (state)=>{
+                return state.employee;
+             }
+)

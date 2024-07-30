@@ -1,1 +1,61 @@
 <p>bookmyseat works!</p>
+
+
+<!-- {{officeLocations | json}} -->
+<!-- <br>
+
+{{citys|json}}
+{{enableDateStart | date:'yyyy-MM-dd'}} 
+{{enableDateEnd| date:'yyyy-MM-dd'}}  -->
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+<app-dashboardmenu></app-dashboardmenu><br><br><br><br>
+<a routerLink="../" class="btn btn-primary" style="float:right">Go back</a><br><br>
+<h1>Book Your Seat</h1>
+
+<form [formGroup]="bookmyseatform" (ngSubmit)="addbookseat()"> 
+    <!-- {{bookmyseatform.value |json}} -->
+    <div class="form-check form-check-inline controlwidth" >
+        <label class="form-check-label">Date:</label>
+            <input class="form-control" formControlName="dateOfVisit" type="date" #dateOfVisit min="{{enableDateStart | date:'yyyy-MM-dd'}} " max="{{enableDateEnd| date:'yyyy-MM-dd'}} ">
+            <div *ngIf="bookmyseatform.get('dateOfVisit').touched && !bookmyseatform.get('dateOfVisit').valid" >
+                <div *ngIf="bookmyseatform.get('dateOfVisit').errors.required">
+                    <small class="form-text text-danger">Please select visit date!</small>
+                </div> 
+             </div>    
+    </div><br>
+    <div class="form-check form-check-inline controlwidth">
+        <label class="form-check-label">Select Location:</label>
+            <select class="form-control" #SelectedLocation
+            formControlName="locationId"
+            (change)='onCityChange(SelectedLocation.value,dateOfVisit.value)' >
+              <option value="default">Select City</option>
+                <option *ngFor="let loc of officeLocations"  [value]="loc.id" [text]="loc.location+'-'+loc.city"> 
+                </option> 
+            </select>  
+            <div *ngIf="bookmyseatform.get('locationId').touched && !bookmyseatform.get('locationId').valid" >
+                <div *ngIf="bookmyseatform.get('locationId').errors.required">
+                    <small class="form-text text-danger">Please select City!</small>
+                </div> 
+             </div>      
+    </div><br>
+    <div class="form-check form-check-inline controlwidth">
+        <label class="form-check-label">Select Avaialble Seats :</label>    
+            <select class="form-control"  formControlName="seatId"  #SelectedSeat>
+                <option value="default">Select Seat</option>
+                <option *ngFor="let loc of availableSeats"  [value]="loc.id" [text]="loc.seatpath">
+                </option> 
+            </select> 
+            <div *ngIf="bookmyseatform.get('seatId').touched && !bookmyseatform.get('seatId').valid" >
+                <div *ngIf="bookmyseatform.get('seatId').errors.required">
+                    <small class="form-text text-danger">Please select seat!</small>
+                </div> 
+             </div>  
+            
+    </div>
+    <br>
+
+    <button type="submit" class="btn btn-success" style="float:right">Book Seat</button>
+</form>
+</div>
+</div>

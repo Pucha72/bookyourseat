@@ -18,7 +18,7 @@ export const _appReducer=createReducer(
 
         return {
             ...state,
-            employee:null,
+            employee:{id:0,associateNumber:'',name:'',role:''},
             isauthenticated:false
         }
     })

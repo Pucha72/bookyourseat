@@ -20,8 +20,8 @@ export class LoginComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     this.loginform=this.formBuilder.group(
       {
-        "associateNumber":['',Validators.required],
-        "password":['',Validators.required], 
+        "associateNumber":['EMP12345',Validators.required],
+        "password":['12345',Validators.required], 
       }
     )
   }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       this.route.navigate(['/']); 
     }) 
   }
-  
+   
   ngOnDestroy(): void {
    // this.loginSubscription.unsubscribe();
   }

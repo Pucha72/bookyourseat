@@ -9,7 +9,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {
     path:'dashboard',
-    canActivateChild:[AuthguardGuard],
+    //canActivateChild:[AuthguardGuard],
     loadChildren:()=> import('./booking/booking.module').then((m)=>m.BookingModule)
   },
   {path:'pagenotfound',component:PagenotfoundComponent}
