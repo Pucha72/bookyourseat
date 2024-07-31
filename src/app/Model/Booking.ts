@@ -5,10 +5,13 @@ export interface IBooking
        employeeId :number,
        associatenumber :string,
        dateOfVisit  :Date,
-       seatId  :string,
+       seatId  :number,
        seatpath  :string,
+       locationId?:number,
        location :string,
-       city :string
+       city :string,
+       eligibleForModification?:boolean,
+       status?:boolean
 }
 
 

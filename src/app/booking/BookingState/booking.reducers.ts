@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { intialState } from "./booking.state"; 
-import { addbookingsuccess, loadMyBooking_success, loadOfficeLocations_success, loadSeats, loadSeats_success } from "./booking.actions";
+import { addbookingsuccess, deleteBookingSuccess, loadMyBooking_success, loadOfficeLocations_success, loadSeats, loadSeats_success, updateBookingSuccess } from "./booking.actions";
 import { act } from "@ngrx/effects";
 import { state } from "@angular/animations";
  
@@ -31,6 +31,20 @@ export const _bookingReducer=createReducer(
         return {
             ...state,
             booking:[...state.bookings , booking]
+        }
+    }),
+    on(deleteBookingSuccess,(state,action)=>{
+        const activeBookigns=state.bookings.filter(x=>x.id!=action.id);
+        return {
+
+        ...state,
+        bookings:activeBookigns
+        }
+    }),
+    on(updateBookingSuccess,(state,action)=>{
+        return {
+            ...state
+
         }
     })
 )

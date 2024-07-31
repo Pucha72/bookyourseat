@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector, props } from "@ngrx/store";
 import { IBookingState } from "./booking.state"; 
 import { ISeatMaster, SeatMaster } from "src/app/Model/SeatMaster";
+import { IBooking } from "src/app/Model/Booking";
 
 
 // export interface AppState{
@@ -9,7 +10,7 @@ import { ISeatMaster, SeatMaster } from "src/app/Model/SeatMaster";
 // export const AppReducer={
 //     intialState:appReducer
 // }
-export const BookingSelector=createFeatureSelector<IBookingState>('intialState');
+const BookingSelector=createFeatureSelector<IBookingState>('intialState');
 
 
 //getLoginStatus Selector
@@ -25,8 +26,19 @@ export const loadSeatsSelector=createSelector(BookingSelector,(state:any,props:a
 })
  
 
+
 export const loadMyBookingSelector=createSelector(BookingSelector,
     (state)=>{
         return state.bookings;
     }
 )
+ 
+ 
+export const loadSelectedBooking = (Id: number) => createSelector(BookingSelector, (state) => {
+    return state.bookings.find((x)=>x.id==Id)  
+});
+
+//new way of passing params to selectors remembers *
+export const loadSeatsSelectedSelector = (locationId: number) => createSelector(BookingSelector, (state) => {
+    return state.seatmaster.find(x=>x.locationId==locationId); 
+});

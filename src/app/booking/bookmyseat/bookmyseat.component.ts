@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/AppState/app.state';
-import { loadOfficeLocationsSelector, loadSeatsSelector } from '../BookingState/booking.selectors';
+import { loadMyBookingSelector, loadOfficeLocationsSelector, loadSeatsSelector } from '../BookingState/booking.selectors';
 import { addbooking, loadOfficeLocations, loadSeats } from '../BookingState/booking.actions';
 import { IOfficeLocation, OfficeLocation } from 'src/app/Model/OfficeLocation';
 import { ISeatMaster } from 'src/app/Model/SeatMaster';
@@ -9,13 +9,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { getUser } from 'src/app/AppState/app.selectors';
 import { IBooking } from 'src/app/Model/Booking';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bookmyseat',
   templateUrl: './bookmyseat.component.html',
   styleUrls: ['./bookmyseat.component.css']
 })
-export class BookmyseatComponent implements OnInit {
+export class BookmyseatComponent implements OnInit, OnDestroy,AfterViewInit {
   public officeLocations:any;
   public availableSeats:any;
  public citys:any 
@@ -23,6 +24,7 @@ export class BookmyseatComponent implements OnInit {
 public bookmyseatform:any
 public enableDateStart=''
 public enableDateEnd=''
+private _subscription=new Subscription()
   constructor(private store:Store<IAppState>,private formBuilder:FormBuilder, private route:Router) { }
 
   ngOnInit(): void {
@@ -53,12 +55,19 @@ public enableDateEnd=''
 
   onCityChange(selectedCity:string,dateOfVisit:string)
   {    
+    if(!this.bookmyseatform.valid){
+      if(this.bookmyseatform.value.locationId==0){ 
+       return ;
+        
+      } 
+      return this.bookmyseatform.markAllAsTouched();
+    }
     debugger 
     const locationId=Number(selectedCity)
     this.seatReq={locationId:locationId,dateOfVisit:new Date(dateOfVisit)}
     this.store.dispatch(loadSeats({data:this.seatReq}));   
     this.store.select(loadSeatsSelector,{locationId}).subscribe(data=>this.availableSeats=data);
- 
+    
   }
 
   addbookseat(){
@@ -112,5 +121,20 @@ public enableDateEnd=''
       locations: group[key]
     }));
 
+  }
+
+
+  dateOfVisitChange(){
+    const _dateOfVisit= this.bookmyseatform.value.dateOfVisit;
+    this.store.select(loadMyBookingSelector)
+  }
+
+
+  ngAfterViewInit(): void {
+    this.enableDateStart=new Date().toISOString().slice(0,10);
+    this.enableDateEnd=new Date().toISOString().slice(0,10); 
+  }
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 }

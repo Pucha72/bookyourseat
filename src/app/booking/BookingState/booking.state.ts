@@ -1,13 +1,12 @@
-import { Booking } from "src/app/Model/Booking" 
+import { Booking, IBooking } from "src/app/Model/Booking" 
 import { IOfficeLocation } from "src/app/Model/OfficeLocation"
-import { SeatMaster } from "src/app/Model/SeatMaster"
+import { ISeatMaster, SeatMaster } from "src/app/Model/SeatMaster"
 
  
 export interface IBookingState{ 
-    officelocation:IOfficeLocation[],
-    seatmaster:SeatMaster[], 
-    bookings:Booking[]
-
+    officelocation:IOfficeLocation[], 
+    seatmaster:ISeatMaster[], 
+    bookings:IBooking[]
 }
 export const intialState:IBookingState={ 
     officelocation:[],

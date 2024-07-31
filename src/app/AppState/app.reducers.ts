@@ -1,6 +1,7 @@
-import { createReducer, on } from "@ngrx/store";
-import { intialState } from "./app.state";
+import { createReducer, on, Store } from "@ngrx/store";
+import { IAppState, intialState } from "./app.state";
 import { login_success, logout_success } from "./app.actions";
+import { AppState } from "./app.selectors";
 
 
 export const _appReducer=createReducer(
@@ -19,7 +20,10 @@ export const _appReducer=createReducer(
         return {
             ...state,
             employee:{id:0,associateNumber:'',name:'',role:''},
-            isauthenticated:false
+            isauthenticated:false,
+            officelocation: [],
+            seatmaster: [],
+            bookings: []
         }
     })
     //////Login & Logout END
@@ -27,7 +31,13 @@ export const _appReducer=createReducer(
 
 )
 
-export function appReducer(state:any,action:any){
+export function appReducer(state:any,action:any){ 
+    //step2 reducer setup for session
+    // if(sessionStorage.getItem('applicationState')){
+
+    //  const application: IAppState = JSON.parse(sessionStorage.getItem('applicationState'))?JSON.parse(sessionStorage.getItem('applicationState')):state; 
+    //  state = application 
+    // }
     return _appReducer(state,action);
 }
 

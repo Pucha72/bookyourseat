@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import {  bookingReducer } from './BookingState/booking.reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardmenuComponent } from './dashboardmenu/dashboardmenu.component';
+import { EditbookingComponent } from './editbooking/editbooking.component';
  
 
 
@@ -22,7 +23,8 @@ export const routes:Routes=[
     ] 
   }, 
   {path:'bookseat', component:BookmyseatComponent},
-  {path:'managebookings', component:ManagebookingsComponent}
+  {path:'managebookings', component:ManagebookingsComponent},
+  {path:'editbooking/:Id',component:EditbookingComponent},
 ]
 
 @NgModule({
@@ -30,7 +32,8 @@ export const routes:Routes=[
     DashboardComponent,
     BookmyseatComponent,
     ManagebookingsComponent,
-    DashboardmenuComponent 
+    DashboardmenuComponent,
+    EditbookingComponent 
   ],
   imports: [
     CommonModule,

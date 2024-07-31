@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IOfficeLocation } from '../Model/OfficeLocation';
 import { ApiEndpoint } from '../Model/Endpoint';
-import { SeatRequest } from '../Model/SeatRequest';
-import { SeatMaster } from '../Model/SeatMaster';
+import { ISeatRequest, SeatRequest } from '../Model/SeatRequest';
+import { ISeatMaster, SeatMaster } from '../Model/SeatMaster';
 import { Booking, IBooking } from '../Model/Booking';
 
 @Injectable({
@@ -18,24 +18,24 @@ export class BookingsService {
     return this.http.get<IOfficeLocation[]>(ApiEndpoint.LoadOfficeLocations);
   }
 
-  loadSeats(input:SeatRequest):Observable<SeatMaster[]>{
-    return this.http.post<SeatMaster[]>(ApiEndpoint.LoadSeats,input);
+  loadSeats(input:ISeatRequest):Observable<ISeatMaster[]>{
+    return this.http.post<ISeatMaster[]>(ApiEndpoint.LoadSeats,input);
   }
 
-  loadmybookings(employeeId:number):Observable<SeatMaster[]>{
-    return this.http.get<SeatMaster[]>(ApiEndpoint.LoadMyBookings+employeeId);
+  loadmybookings(employeeId:number):Observable<IBooking[]>{
+    return this.http.get<IBooking[]>(ApiEndpoint.LoadMyBookings+employeeId);
   }
 
-  addBooking(input:Booking):Observable<IBooking>{
+  addBooking(input:IBooking):Observable<IBooking>{
     debugger
     return this.http.post<IBooking>(ApiEndpoint.AddBooking,input);
   }
 
-  updateBooking(input:Booking):Observable<boolean>{
+  updateBooking(input:IBooking):Observable<boolean>{
     return this.http.put<boolean>(ApiEndpoint.UpdateBooking,input);
   }
 
-  deleteBooking(input:Booking):Observable<boolean>{
+  deleteBooking(input:number):Observable<boolean>{
     return this.http.delete<boolean>(ApiEndpoint.DeleteBooking+input);
   }
 }

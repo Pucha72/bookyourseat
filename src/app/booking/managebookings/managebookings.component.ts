@@ -1,20 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/AppState/app.state';
-import { loadMyBooking } from '../BookingState/booking.actions';
+import { deleteBooking, loadMyBooking } from '../BookingState/booking.actions';
 import { loadMyBookingSelector } from '../BookingState/booking.selectors';
 import { getUser } from 'src/app/AppState/app.selectors';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-managebookings',
   templateUrl: './managebookings.component.html',
   styleUrls: ['./managebookings.component.css']
 })
-export class ManagebookingsComponent implements OnInit {
+export class ManagebookingsComponent implements OnInit,OnDestroy {
   userID=0
   
   public mybookings:any;
-
+public _subscription=new Subscription()
   constructor(private store:Store<IAppState>) { }
   
 
@@ -28,6 +29,16 @@ export class ManagebookingsComponent implements OnInit {
   loadMyBookings(){
     // this.store.select(get) 
     this.store.dispatch(loadMyBooking({employeeId:this.userID}));
-    this.store.select(loadMyBookingSelector).subscribe(data=>this.mybookings=data)
+    this._subscription= this.store.select(loadMyBookingSelector).subscribe(data=>this.mybookings=data)
+  }
+
+  deleteBooking(id:number){
+    if(confirm('Proceed deleting record!')){
+    this.store.dispatch(deleteBooking({id:id}));
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 }

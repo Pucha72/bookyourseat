@@ -18,7 +18,16 @@
                 <td>{{item.dateOfVisit | date:'dd/MM/yyyy'}}</td>
                 <td>{{item.seatpath}}</td>
                 <td>{{item.location}}</td>
-                <td>Edit , Delete </td>   
+                <td>
+                    <div *ngIf="item.eligibleForModification">
+                    <a class="btn btn-primary btn-sm" [routerLink]="['../editbooking',item.id]">Edit</a>  
+                     <a class="btn btn-danger btn-sm" (click)="deleteBooking(item.id)">Delete</a>
+                    </div>
+                    <div *ngIf="!item.eligibleForModification">
+                        <span *ngIf="item.status">Completed</span>
+                        <span *ngIf="!item.status">Detai Awaited</span>
+                    </div>   
+                 </td>   
             </tr> 
         </tbody>
 </table>
