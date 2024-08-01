@@ -8,11 +8,23 @@ export const _appReducer=createReducer(
     intialState,
      //////Login & Logout BEGIN
     on(login_success,(state,action)=>{
+        debugger
 
         return {
             ...state,
             employee:action.data,
             isauthenticated:true
+        }
+    }),
+    on(logout_success,(state,action)=>{
+
+        return {
+            ...state,
+            employee:{id:0,associateNumber:'',name:'',role:''},
+            isauthenticated:false,
+            officelocation: [],
+            seatmaster: [],
+            bookings: []
         }
     }),
     on(logout_success,(state,action)=>{

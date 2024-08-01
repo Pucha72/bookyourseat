@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, getLoginStatus } from '../AppState/app.selectors';
+import { AppState, getLoginStatus, getUser } from '../AppState/app.selectors';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { login } from '../AppState/app.actions';
 import { Router } from '@angular/router';
@@ -35,12 +35,21 @@ export class LoginComponent implements OnInit,OnDestroy {
     const payload={associateNumber:this.loginform.value.associateNumber,password:this.loginform.value.password}
     this.store.dispatch(login({data:payload}));
     //this.loginSubscription=
-    this.store.select(getLoginStatus).subscribe(data=>{
-      if(data)
-        this.route.navigate(['/dashboard']);
-      else
-      this.route.navigate(['/']); 
+    
+    this.store.select(getUser).subscribe(data=>{ 
+        localStorage.setItem('userData',JSON.stringify(data)); 
+        if(data)
+          this.route.navigate(['/dashboard']);
+        else
+        this.route.navigate(['/']); 
     }) 
+
+    // this.store.select(getLoginStatus).subscribe(data=>{
+    //   if(data)
+    //     this.route.navigate(['/dashboard']);
+    //   else
+    //   this.route.navigate(['/']); 
+    // }) 
   }
    
   ngOnDestroy(): void {

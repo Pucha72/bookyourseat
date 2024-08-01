@@ -16,6 +16,11 @@ export const AppSelector=createFeatureSelector<IAppState>('intialState');
 //getLoginStatus Selector
 export const getLoginStatus=createSelector(AppSelector,
     (state)=>{
+        const user=JSON.stringify(localStorage.getItem('userData'))
+        console.log(JSON.parse(user)); 
+                if(JSON.parse(user)?.Id>0){
+                    return true
+                }
                 return state.isauthenticated as Boolean;
              }
 )

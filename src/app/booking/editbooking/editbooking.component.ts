@@ -2,7 +2,7 @@ import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, OnDest
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/AppState/app.state';
 import { loadOfficeLocationsSelector, loadSeatsSelector, loadSelectedBooking } from '../BookingState/booking.selectors';
-import { addbooking, loadOfficeLocations, loadSeats } from '../BookingState/booking.actions';
+import { addbooking, loadOfficeLocations, loadSeats, updateBooking } from '../BookingState/booking.actions';
 import { IOfficeLocation, OfficeLocation } from 'src/app/Model/OfficeLocation';
 import { ISeatMaster } from 'src/app/Model/SeatMaster';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -126,8 +126,8 @@ debugger
     city :''
   }
 
-    this.store.dispatch(addbooking({data:data}));
-    alert('Booking Added')
+    this.store.dispatch(updateBooking({data:data}));
+    alert('Booking Details Updated')
     this.route.navigate(['/dashboard/managebookings']);
 
   }
@@ -155,17 +155,32 @@ debugger
   ngAfterViewInit(): void {
     this.selectedlocation=this.editbookmyseatform.value.locationId
     this.selectedseat=this.editbookmyseatform.value.seatId  
-    this.editbookmyseatform.setValue({ 
+    this.editbookmyseatform.setValue({
+      locationId: this.editbookmyseatform.value.locationId,
+      seatId: this.editbookmyseatform.value.seatId ,
       dateOfVisit: formatDate(this.editbookmyseatform.value.dateOfVisit, 'yyyy-MM-dd', 'en') ,
    });
-   this.editbookmyseatform.controls.seatId.setValue( this.editbookmyseatform.value.seatId);
-   this.editbookmyseatform.controls.locationId.setValue( this.editbookmyseatform.value.locationId);
+  
   }
   ngAfterContentChecked(): void {
     this.enableDateStart=new Date().toISOString().slice(0,10); 
+      this.editbookmyseatform.controls.seatId.setValue( this.editbookmyseatform.value.seatId);
+    this.editbookmyseatform.controls.locationId.setValue( this.editbookmyseatform.value.locationId);
   }
 
   ngOnDestroy(): void {
+    
+    this.officeLocations=[];
+    this.availableSeats=[];
+    this.citys=[] 
+    this.seatReq=[];
+   this.editbookmyseatform=null
+   this.enableDateStart=''
+   this.enableDateEnd=''
+   this.selectedlocation=""; 
+   this.selectedseat=""; 
+   this.currentRecordId=0
+   this.selectedItem=0
     this._subscription.unsubscribe();
   }
 

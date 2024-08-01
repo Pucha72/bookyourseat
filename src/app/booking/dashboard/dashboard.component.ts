@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private subscriber=new Subscription();
   constructor(private store:Store<AppState>,private route:Router){}
   ngOnInit(): void {
-    this.store.select(getLoginStatus).subscribe(data=>this.isAuthenticated=data);
+    //this.store.select(getLoginStatus).subscribe(data=>this.isAuthenticated=data);
     //alert(this.isAuthenticated)
 
    this.subscriber= this.store.select(getUser).subscribe(data=>{

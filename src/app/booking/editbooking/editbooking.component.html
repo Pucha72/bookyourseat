@@ -16,7 +16,7 @@
     <!-- {{bookmyseatform.value |json}} -->
     <div class="form-check form-check-inline controlwidth" >
         <label class="form-check-label">Date:</label>
-            <input min="{{enableDateStart | date:'yyyy-MM-dd'}} "  class="form-control" formControlName="dateOfVisit" type="date" #dateOfVisit >
+            <input min="{{enableDateStart | date:'yyyy-MM-dd'}} "  class="form-control" formControlName="dateOfVisit" type="date" #dateOfVisit format="yyyy-MM-dd" >
             <div *ngIf="editbookmyseatform.get('dateOfVisit').touched && !editbookmyseatform.get('dateOfVisit').valid" >
                 <div *ngIf="editbookmyseatform.get('dateOfVisit').errors.required">
                     <small class="form-text text-danger">Please select visit date!</small>
@@ -28,8 +28,9 @@
             <select class="form-control" #SelectedLocation
             formControlName="locationId"
             (change)='update_onCityChange(SelectedLocation.value,dateOfVisit.value)' 
-            [(ngModel)]="selectedlocation"
+            
             >
+            <!-- [(ngModel)]="selectedlocation" -->
               <option value="0">Select City</option>
                 <option *ngFor="let loc of officeLocations"  [value]="loc.id" [text]="loc.location+'-'+loc.city"> 
                 </option> 
@@ -42,8 +43,8 @@
     </div><br>
     <div class="form-check form-check-inline controlwidth">
         <label class="form-check-label">Select Avaialble Seats :</label>    
-            <select class="form-control"  formControlName="seatId"  #SelectedSeat
-            [(ngModel)]="selectedseat">
+            <select class="form-control"  formControlName="seatId"  #SelectedSeat>
+            <!-- [(ngModel)]="selectedseat"> -->
                 <option value="0">Select Seat</option>
                 <option *ngFor="let loc of availableSeats"  [value]="loc.id" [text]="loc.seatpath">
                 </option> 
@@ -57,7 +58,7 @@
     </div>
     <br>
 
-    <button type="submit" class="btn btn-success" style="float:right">Book Seat</button>
+    <button type="submit" class="btn btn-success" style="float:right">Update</button>
 </form>
 </div>
 </div>
