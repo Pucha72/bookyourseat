@@ -37,11 +37,12 @@ export class LoginComponent implements OnInit,OnDestroy {
     //this.loginSubscription=
     
     this.store.select(getUser).subscribe(data=>{ 
+      debugger
         localStorage.setItem('userData',JSON.stringify(data)); 
         if(data)
           this.route.navigate(['/dashboard']);
         else
-        this.route.navigate(['/']); 
+        this.route.navigate(['/login']); 
     }) 
 
     // this.store.select(getLoginStatus).subscribe(data=>{

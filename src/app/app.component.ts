@@ -38,8 +38,10 @@ export class AppComponent implements OnInit, DoCheck {
     }  
     
     this.store.select(getLoginStatus).subscribe(data=>this.isAuthenticated=data);
-    // if(!this.isAuthenticated) 
-    //   this.route.navigate(['login']);
+    if(!this.isAuthenticated) 
+      this.route.navigate(['login']);
+    // else
+    // this.route.navigate(['dashboard']);
   }
   ngDoCheck(): void {
     //clearing history on back browser button
